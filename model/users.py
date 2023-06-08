@@ -4,7 +4,7 @@ from config.db import engine, meta_data
 
 users = Table("users", meta_data,
               Column("id",Integer, primary_key=True),
-              Column("name", String(255), nullabel=False),
+              Column("name", String(255), nullable=False),
               Column("username", String(255), nullable=False),
               Column("user_passw", String(255), nullable=False))
 
