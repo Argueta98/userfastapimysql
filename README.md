@@ -23,6 +23,7 @@ INSTALAMOS DEPENDENCIAS
 ```
 pip install fastapi uvicorn
 pip install sqlalchemy pymysql cryptography
+pip install werkzeug
 ```
 
 EJECUTAR EL PROYECTO CON `UVICORN` y se actualice automaticamente
@@ -31,6 +32,12 @@ EJECUTAR EL PROYECTO CON `UVICORN` y se actualice automaticamente
 uvicorn main:app --reload     
 ```
 
+Generar un archivo que permita ver lo modulos que se han agregado
+
+
+```
+pip freeze > requeriments.txt
+```
 
 ## ANOTACIONES IMPORTANTES
 
@@ -39,3 +46,10 @@ Enviar dato a la base de datos mysl
 
 `COMMIT` Permite que l proceso sea enviado a la base ejecutando `conn.commit()` para que se puedan almacenar la información
 
+Para cambiar de version a una version que funcione el codigo es
+
+```
+pip uninstall SQLAlchemy
+pip install SQLAlchemy==1.4.47
+pip show SQLAlchemy
+```
