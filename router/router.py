@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Response
-from starlette.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT
+from starlette.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 from schema.user_schema import UserSchema, DataUser
 from config.db import engine
 from model.users import users
@@ -35,7 +35,7 @@ def create_user(data_user: UserSchema):
         ##conn.commit() ##Por la version hay que ejecutar commit
         return Response(status_code=HTTP_201_CREATED)
     
-@user.post("/api/user/login")
+@user.post("/api/user/login", status_code=200)
 def user_login(data_user: DataUser):
     with engine.connect() as conn:
         result = conn.execute(users.select().where(users.c.username == data_user.username)).first()
@@ -44,9 +44,15 @@ def user_login(data_user: DataUser):
         if result != None:
             check_passw = check_password_hash(result[3],data_user.user_passw)
             if check_passw:
-                return "Success"
+                return {
+                    "status": 200,
+                    "message": "Access Success"
+                }
             
-        return "DENIED"
+        return {
+            "status": HTTP_401_UNAUTHORIZED,
+            "message": "Access Denied"
+        }
 
 
 
