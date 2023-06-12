@@ -12,11 +12,9 @@ def root():
 @user.post("/api/user")
 def create_user(data_user: UserSchema):
     new_user = data_user.dict()
-
     conn.execute(users.insert().values(new_user))
-    
+    conn.commit() ##Por la version hay que ejecutar commit
     return "SUCCESS"
-
 
 
 @user.put("/api/user")
